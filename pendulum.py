@@ -22,7 +22,6 @@ class const_vel:
             return 0
         x = 0  # we always start at 0
         ot =0
-        op=0
         ov=0
         for t_,v_ in zip(self.tp,self.vp):
             if t>=t_ :
@@ -49,8 +48,6 @@ class const_acc:
             return 0
         x = 0  # we always start at 0
         ot =0
-        op=0
-        ov=0
         oa =0
         v =0
         for t_,a_ in zip(self.tp,self.ap):
@@ -60,7 +57,6 @@ class const_acc:
             else:
                 return x+0.5*oa*(t-ot)**2+(t-ot)*v 
             ot=t_  
-            ov=v
             oa=a_
         return x+0.5*a_*(t-ot)**2+(t-ot)*v 
 
@@ -68,7 +64,7 @@ class const_acc:
     
     
 class simplependulum:
-    def __init__(self,x0=0,v0=0,w0=0.700249,xi=0,trolley_pos=None):
+    def __init__(self,x0=0,v0=0,w0=0.700249,xi=0,trolley_pos=None,dt =0.005):
         """
         x0,v0       : pendulum initial conditions x0 in m, v0 in m/s
         w0          : angular frequncy of the pendulum sqrt(g/l)
@@ -79,7 +75,7 @@ class simplependulum:
         self.omega = w0
         self.xi    = xi
         self.M=np.matrix(((0,1),(-self.omega**2,-2*self.omega*self.xi)))
-        self.dt = 0.005  # time step in the simulation
+        self.dt =dt  # time step in the simulation
         self.xm = np.matrix((x0,v0)).T
         self.t =0
         self.xc = trolley_pos
