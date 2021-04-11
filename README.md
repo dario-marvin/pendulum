@@ -49,12 +49,27 @@ One the simulation is setup, it can be run, by calling
 
 where the argument is the number of simulated seconds the simulation runs. In this case the trajectory of the pendulum is calculated for 30 s.The function does not return anything. The ouptut of the simulation is stored in five lists owned by the instance. They are
 
-
-- `pend.out_t`  : time
+- `pend.out_t`    : time
 - `pend.out_xm`   : position of the mass
 - `pend.out_vm`   : velocity of the mass
 - `pend.out_xc`   : position of the trolley
 - `pend.out_vc`   : velocity of the trolley
+
+### torsionpendulum
+
+Analog to simplependulum, setting the class up requires one more parameter, the moment of inertia I of the pendulum. It is:
+`pend = pendulum. torsionpendulum(theta0=0,theta_dot0=0,w0=0.0523598,xi=0,I=0.076233,ext_torque=None,dt =1)`
+
+The intial conditions are called theta0 and theta_dot0. The former in rad, the latter in rad/s.
+
+The go command is the same as in simplependulum. The return lists are called.
+
+- `pend.out_t`         : time
+- `pend.out_theta`     : theta, i.e., angular excursion of the torsion pendulum
+- `pend.out_theta_dot` : time derivative of theta
+- `pend.out_n`         : external torque
+- `pend.out_n_dot`     : time derivative of the external torque
+
 
 
 
