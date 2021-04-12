@@ -19,7 +19,7 @@ ax[1].set_xlabel('t/s')
 ax[0].set_ylabel('v/(m/s)')
 ax[1].set_ylabel('x/m')
 fig.show()
-print("Figure 1: A damped crane pendulum")
+print("Figure 1: A stationary damped pendulum")
 
 
 #Trick 1 with an undamped pendulum
@@ -39,6 +39,85 @@ ax[1].set_xlabel('t/s')
 ax[0].set_ylabel('v/(m/s)')
 ax[1].set_ylabel('x/m')
 fig.show()
+print("Figure 2: Trick 1 start moving and stop a full period later ")
+
+
+### Trick 2 with an undamped pendulum. 
+#Go to v0/2 and then half a period later to v0
+n=1 # you can choose 
+tl2 = [0,10,10+T0/2+n*T0]
+vl2 = [0,0.5,1]
+move2 = pendulum.const_vel(tl2,vl2)
+pend2 = pendulum.simplependulum(x0=0,v0=0,w0=2*np.pi/T0,xi=0.0,trolley_pos=move2.xc)
+pend2.go(30)
+fig, ax = plt.subplots(2,sharex=True)
+ax[0].plot(pend2.out_t,pend2.out_vm,'b-')
+ax[0].plot(pend2.out_t,pend2.out_vc,'r:')
+ax[1].plot(pend2.out_t,pend2.out_xm,'b-')
+ax[1].plot(pend2.out_t,pend2.out_xc,'r:')
+ax[1].set_xlabel('t/s')
+ax[0].set_ylabel('v/(m/s)')
+ax[1].set_ylabel('x/m')
+fig.show()
+print("Figure 3: Trick 2 start moving half speed and  go full speed an odd mutiple of half a period later")
+
+### Trick 2 with stopping. 
+#Go to v0/2 and then half a period later to v0
+n=0 # Here we choose n=0
+# for other n the 20 belwo must be adjusted
+tl3 = [0,5,5+T0/2+n*T0,20,20+T0/2+n*T0]
+vl3 = [0,0.5,1,0.5,0]
+move3 = pendulum.const_vel(tl3,vl3)
+pend3 = pendulum.simplependulum(x0=0,v0=0,w0=2*np.pi/T0,xi=0.0,trolley_pos=move3.xc)
+pend3.go(50)
+fig, ax = plt.subplots(2,sharex=True)
+ax[0].plot(pend3.out_t,pend3.out_vm,'b-')
+ax[0].plot(pend3.out_t,pend3.out_vc,'r:')
+ax[1].plot(pend3.out_t,pend3.out_xm,'b-')
+ax[1].plot(pend3.out_t,pend3.out_xc,'r:')
+ax[1].set_xlabel('t/s')
+ax[0].set_ylabel('v/(m/s)')
+ax[1].set_ylabel('x/m')
+fig.show()
+print("Figure 4: Trick 2 used twice")
+
+### Trick 1 with acceleration. 
+delt = 4
+tl4 = [0,10,10+delt,10+T0,10+delt+T0]  #times when a change in velocity  happens
+al4 = [0,1 ,0 ,-1,0]       #the velocity it changes to at that time
+move4= pendulum.const_acc(tl4,al4)
+pend4 = pendulum.simplependulum(x0=0,v0=0,w0=2*np.pi/T0,xi=0.0,trolley_pos=move4.xc)
+pend4.go(30)
+fig, ax = plt.subplots(2,sharex=True)
+ax[0].plot(pend4.out_t,pend4.out_vm,'b-')
+ax[0].plot(pend4.out_t,pend4.out_vc,'r:')
+ax[1].plot(pend4.out_t,pend4.out_xm,'b-')
+ax[1].plot(pend4.out_t,pend4.out_xc,'r:')
+ax[1].set_xlabel('t/s')
+ax[0].set_ylabel('v/(m/s)')
+ax[1].set_ylabel('x/m')
+fig.show()
+print("Figure 5: Trick 1 with finite acceleration")
+
+### Trick 2 with acceleration. 
+delt = 4
+tl5 = [0,10,10+delt,10+T0/2,10+delt+T0/2]  #times when a change in velocity  happens
+al5 = [0,1 ,0 ,1,0]       #the velocity it changes to at that time
+move5= pendulum.const_acc(tl5,al5)
+pend5 = pendulum.simplependulum(x0=0,v0=0,w0=2*np.pi/T0,xi=0.0,trolley_pos=move5.xc)
+pend5.go(50)
+fig, ax = plt.subplots(2,sharex=True)
+ax[0].plot(pend5.out_t,pend5.out_vm,'b-')
+ax[0].plot(pend5.out_t,pend5.out_vc,'r:')
+ax[1].plot(pend5.out_t,pend5.out_xm,'b-')
+ax[1].plot(pend5.out_t,pend5.out_xc,'r:')
+ax[1].set_xlabel('t/s')
+ax[0].set_ylabel('v/(m/s)')
+ax[1].set_ylabel('x/m')
+fig.show()
+print("Figure 6: Trick 2 with finite acceleration")
+
+
 
 print("Press Enter to quit")
 input()

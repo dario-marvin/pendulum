@@ -287,7 +287,7 @@ class find_move:
         s3t = np.sin(t3*w0+w0t)
      
         cc = v0- na*w0*pi/(2*ka*(pi*pi-4*w0t*w0t)) *(2*w0t*(-c3+c1t)+ pi*(s1+s3t))
-        sc =    -na*w0*pi/(2*ka*(pi*pi-4*w0t*w0t)) *(pi*(c1+c3t)+ 2*w0t*(s3-s1t))
+        sc =    na*w0*pi/(2*ka*(pi*pi-4*w0t*w0t)) *(pi*(c1+c3t)+ 2*w0t*(s3-s1t))
         return np.sqrt(cc*cc+sc*sc)
             
     def find_t1_t3(self,desired_vamp=1e-9,v0=1):

@@ -1,9 +1,25 @@
 # pendulum
+The following files go with the article *The crane operator's trick an other shenanigans with a pendulum*
 
-These files go with the article *The crane operator's trick an other shenanigans with a pendulum*
 
 ## pendulum.py
 The file pendulum.py is a python module with several classes.
+## section2.ipynb
+Jupyter notebook that shows the physics in section 2 of the paper.
+## section3.ipynb
+Jupyter notebook that shows the physcis in section 3 of the paper.
+## section4.ipynb
+Jupyter notebook that shows the physics in section 4 of the paper.
+## section2.py
+Python script that shows the physics in section 2 of the paper.
+## section3.py
+Python script that shows the physics in section 3 of the paper.
+## section4.py
+Python script that shows the physics in section 4 of the paper.
+## supplemental_material.pdf
+More math on the torsion pendulum
+
+## Description of the classes in pendulum.py
 
 ### simplependulum
 The class simplependulum can be used to simulate a simple pendulum, the crane in the article.
@@ -71,16 +87,3 @@ The go command is the same as in simplependulum. The return lists are called.
 - `pend.out_n_dot`     : time derivative of the external torque
 
 
-
-
-### Jupyter notebooks
-
-Several jupyter notebooks demonstrate the pendulum class.
-
-
-#### section2.ipynb
-Shows simulations of the topics that are discussed in section 2 of the article.
-
-
-#### section3.ipynb
-Shows simulations of the topics that are discussed in section 3 of the article.
