@@ -1,69 +1,41 @@
-# pendulum
-The following files go with the article *The crane operator's trick an other shenanigans with a pendulum*
+# README.md
+The following are supplemental materials for the article entitled *The Crane Operator's Tricks and other Shenanigans with a Pendulum*.
 
 
-## pendulum.py
-The file pendulum.py is a python module with several classes.
-## section2.ipynb
-Jupyter notebook that shows the physics in section 2 of the paper.
-## section3.ipynb
-Jupyter notebook that shows the physcis in section 3 of the paper.
-## section4.ipynb
-Jupyter notebook that shows the physics in section 4 of the paper.
-## section2.py
-Python script that shows the physics in section 2 of the paper.
-## section3.py
-Python script that shows the physics in section 3 of the paper.
-## section4.py
-Python script that shows the physics in section 4 of the paper.
-## supplemental_material.pdf
-More math on the torsion pendulum
+**pendulum.py**  Python module with several classes.
+
+**section2.ipynb**  Jupyter notebook that shows the physics in section 2 of the paper.
+
+**section3.ipynb**  Jupyter notebook that shows the physcis in section 3 of the paper.
+
+**section4.ipynb**  Jupyter notebook that shows the physics in section 4 of the paper.
+
+**section2.py**  Python script that shows the physics in section 2 of the paper.
+
+**section3.py**  Python script that shows the physics in section 3 of the paper.
+
+**section4.py**  Python script that shows the physics in section 4 of the paper.
+
+**supplemental_material.pdf**  More math on the torsion pendulum
+
+
 
 ## Description of the classes in pendulum.py
 
 ### simplependulum
-The class simplependulum can be used to simulate a simple pendulum, the crane in the article.
-The following differential equation is solve numerically.
+This class is used to simulate the dynamics of a simple pendulum, specifically the crane in the article. The math used in this simulation is summarized in Section II of supplemental_material.pdf.
 
-
-$m\ddot{x}_m + c\dot{x}_m + m \frac{g}{l}(x_m-x_c) = 0$ or  $\ddot{x}_m +\frac{c}{m} \dot{x}_m+ \omega_o^2 (x_m-x_c)=0$.
-
-With  $\omega_o^2=\frac{g}{l}$ and $\xi = \frac{c}{2 m\omega_o}$, it reads,
-
-$$
-\ddot{x}_m =- 2\xi\omega_o \dot{x}_m -\omega_o^2 x_m + \omega_o^2 x_c.
-$$
-
-This second order differential equation can be reduced to a first order differential equation by using the variable
-
-$x=\left( \begin{array}{c} x_m\\\dot{x}_m\end{array} \right)$
-
-Hence,
-$$\left( \begin{array}{c} \dot{x}_m\\\ddot{x}_m\end{array} \right) = 
-\left( \begin{array}{cc} 0 &1\\ -\omega_o^2 & -2\xi\omega_o\end{array} \right) 
-\left( \begin{array}{c} x_m\\\dot{x}_m\end{array} \right) + 
-\omega^2 \left( \begin{array}{c} 0\\ x_c \end{array} \right) $$
-
-In other words,
-$$
-\dot{x} =M x + \omega^2 F.
-$$
-
-This equation is solved with the Runge-Kutta method, see [Wiki](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods)
-
-
-The simulation is setup by
+The setup of the simulation is as follows:
 
 `pend = pendulum.simplependulum(x0=1,v0=0,w0=2*np.pi/T0,xi=0.1,trolley_pos=func)`
 
-where x0 and v0 give the initial conditionof the pendulum at t=0 and w0 and xi are the paramters discussed above. The argument trolley_pos points at a fucntion that returns the trolley position as a function of time. If it's left out the trolley is assumed to be at 0 at all times.
+where x0 and v0 are the initial position (m) and velocity (m/s) of the pendulum, respectively, at t=0, w0 is the natural frequency (rad/s), and xi is the unitless damping ratio. The argument trolley_pos points at a fucntion that returns the trolley position as a function of time. If omitted the trolley is assumed to be at 0 at all times.
 
-
-One the simulation is setup, it can be run, by calling
+To execute the simulation, run the following:
 
 `pend.go(30)`
 
-where the argument is the number of simulated seconds the simulation runs. In this case the trajectory of the pendulum is calculated for 30 s.The function does not return anything. The ouptut of the simulation is stored in five lists owned by the instance. They are
+where the argument is the amount of time the pendulum is simulated for in seconds. In this case the trajectory of the pendulum is calculated for 30 s. The function does not return anything and the ouptut of the simulation is stored in five lists owned by the instance:
 
 - `pend.out_t`    : time
 - `pend.out_xm`   : position of the mass
@@ -73,15 +45,20 @@ where the argument is the number of simulated seconds the simulation runs. In th
 
 ### torsionpendulum
 
-Analog to simplependulum, setting the class up requires one more parameter, the moment of inertia I of the pendulum. It is:
-`pend = pendulum. torsionpendulum(theta0=0,theta_dot0=0,w0=0.0523598,xi=0,I=0.076233,ext_torque=None,dt =1)`
+The setup of this class is similar to simplependulum and is as follows:
 
-The intial conditions are called theta0 and theta_dot0. The former in rad, the latter in rad/s.
+`pend = pendulum.torsionpendulum(theta0=0,theta_dot0=0,w0=0.0523598,xi=0,I=0.076233,ext_torque=None,dt=1)`
 
-The go command is the same as in simplependulum. The return lists are called.
+where theta0 and theta_dot0 are the initial angle (rad) and angular velocity (rad/s), respectively, at t=0, w0 is the natural frequency (rad/s), xi is the unitless damping ratio, and I is the moment of inertia (kg m^2).
+
+Similar to simplependulum, to execute the simulation, run the following:
+
+`pend.go(30)`
+
+The five output lists are:
 
 - `pend.out_t`         : time
-- `pend.out_theta`     : theta, i.e., angular excursion of the torsion pendulum
+- `pend.out_theta`     : theta (angular excursion of the torsion pendulum)
 - `pend.out_theta_dot` : time derivative of theta
 - `pend.out_n`         : external torque
 - `pend.out_n_dot`     : time derivative of the external torque
